@@ -1,0 +1,12 @@
+﻿using password_validator.Domain.Validators.Interface;
+
+namespace password_validator.Domain.Validators
+{
+    public class ContainsDigitValidator : IPasswordValidationStrategy
+    {
+        public bool Validate(string password)
+        {
+            return password.Any(char.IsDigit);
+        }
+    }
+}
