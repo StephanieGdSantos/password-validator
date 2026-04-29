@@ -30,7 +30,8 @@ namespace password_validator.Unit.Tests.API.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.True((bool)okResult.Value);
+            var response = Assert.IsType<ValidatePasswordResponse>(okResult.Value);
+            Assert.True(response.IsValid);
         }
 
         [Fact]
@@ -46,7 +47,8 @@ namespace password_validator.Unit.Tests.API.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.False((bool)okResult.Value);
+            var response = Assert.IsType<ValidatePasswordResponse>(okResult.Value);
+            Assert.False(response.IsValid);
         }
 
         [Fact]

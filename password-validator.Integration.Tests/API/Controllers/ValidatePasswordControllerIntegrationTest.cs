@@ -34,8 +34,8 @@ namespace password_validator.Integration.Tests.API.Controllers
 
             // Assert
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<bool>();
-            Assert.Equal(expected, result);
+            var result = await response.Content.ReadFromJsonAsync<ValidatePasswordResponse>();
+            Assert.Equal(expected, result.IsValid);
         }
 
         [Fact]
@@ -87,10 +87,10 @@ namespace password_validator.Integration.Tests.API.Controllers
             // Act
             var response = await _client.PostAsJsonAsync("/validate-password", request);
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<bool>();
+            var result = await response.Content.ReadFromJsonAsync<ValidatePasswordResponse>();
 
             // Assert
-            Assert.False(result);
+            Assert.False(result.IsValid);
         }
 
         [Fact]
@@ -102,10 +102,10 @@ namespace password_validator.Integration.Tests.API.Controllers
             response.EnsureSuccessStatusCode();
 
             // Act
-            var result = await response.Content.ReadFromJsonAsync<bool>();
+            var result = await response.Content.ReadFromJsonAsync<ValidatePasswordResponse>();
 
             // Assert
-            Assert.False(result);
+            Assert.False(result.IsValid);
         }
     }
 }
