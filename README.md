@@ -120,13 +120,21 @@ O uso do Strategy Pattern foi pensado visando reduzir acoplamento e facilitar a 
 Dado o cenário em que a senha deve passar por diversas regras para garantir a validade no negócio, optei pelo uso de Specification Pattern para centralizar os filtros.
 
 3. **Adapter Pattern** </br>
-O Adapter foi utilizado para converter o booleano em um DTO retornado ao usuário da API. Apesar de ser um simples booleano, entendo que o uso de DTOs facilite a manutenibilidade quando houver necessidade de mudanças no contrato. A escolha foi feita majoritariamente pensando em organização da aplicação.
+Pensando na antecipação de mudançar futuras no contrato de resposta (ex: códigos de erro específicos, detalhes de validação), optei pelo uso de Adapter para o DTO de response. Atualmente retorna um booleano, mas a estrutura permite evolução com mínimas mudanças.
 
 4. **Dependency Injection** </br>
 A técnica de injeção de dependência para inversão de controle foi aplicada para reduzir o acoplamento/responsabilidade entre as classes e facilitar testes na aplicação.
 
 5. **Options Pattern** </br>
 Optei pelo uso da interface IOptions para injetar valores mutáveis e externos a aplicação (quantidade máxima de caracteres) para promover tanto a separação de responsabilidades quanto testabilidade da aplicação.
+
+#### Decisões técnicas
+
+1. **Uso de try/catch** </br>
+Dada a ausência de dependências externas na aplicação e validação nativa aplicada ao .NET 8, não implemento uso de try/catch em meu código. Alternativamente, mantenho validações por meio de .Any() e .Length.
+
+2. **Sem annotation Required no DTO request** </br>
+O uso de Required no request da aplicação denotaria em um retorno BadRequest quando houvesse um valor "" enviado a API, contradizendo o retorno proposto no desafio (false). Por isso, não segui com a implementação deste.
 
 #### Fluxo de Validação
 
@@ -156,7 +164,15 @@ Apesar de entender que a API foi desenvolvida para fins de processo seletivo, ac
 
 #### Premissa 2: Ordem das regras
 
-Como as regras são majoritariamente independentes entre si, assumi que não seria necessária uma ordem de validação fixa. Assim, usei LINQ para aplicar as validações conforme a atribuição da lista (sem fluxo fixo).
+Como as regras são majoritariamente independentes entre si, assumi que não seria necessária uma ordem de validação fixa.
+
+---
+
+#### Premissa 3: Status code ideal para retorno de senha inválida (false)
+
+Embora a senha seja inválida, a requisição de validação da senha foi realizada com sucesso e as regras foram aplicadas. Por isso, segui com retorno de status code 200 tanto para respostas true quanto false. Pensei em usar o 422, porém entendo que não se aplicaria exatamente ao contexto dado que o dado foi enviado corretamente, apenas não atende às regras de negócio internas.
+
+---
 
 ## 📦 Dependências Principais
 
