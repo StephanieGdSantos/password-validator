@@ -46,12 +46,11 @@ dotnet run --project password-validator.csproj
 docker pull stephaniegomes/password-validator:latest
 
 # 2. Executar o container COM Swagger habilitado
-docker run -d -p 8080:8080 -p 8081:8081 -e ENABLE_SWAGGER=true stephaniegomes/password-validator:latest
+docker run -d -p 8080:8080 -e ENABLE_SWAGGER=true stephaniegomes/password-validator:latest
 ```
 
 **Aplicação disponível em:**
 - 🔗 HTTP: `http://localhost:8080`
-- 🔒 HTTPS: `https://localhost:8081`
 - 📚 Swagger: `http://localhost:8080/swagger` (quando `ENABLE_SWAGGER=true`)
 
 > **Nota**: Se não quiser habilitar Swagger, basta remover o `-e ENABLE_SWAGGER=true` do comando acima.
