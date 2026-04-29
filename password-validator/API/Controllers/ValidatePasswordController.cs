@@ -17,7 +17,7 @@ namespace password_validator.API.Controllers
                 return BadRequest();
 
             var result = _validationResponseAdapter.Validate(password.Password);
-            return Ok(result.IsValid);
+            return Ok(result);
         }
     }
 }
