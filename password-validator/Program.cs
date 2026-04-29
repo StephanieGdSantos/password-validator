@@ -31,7 +31,10 @@ builder.Services.AddOptions<LengthPasswordOptions>()
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+var enableSwagger = app.Environment.IsDevelopment() || 
+                    bool.TryParse(Environment.GetEnvironmentVariable("ENABLE_SWAGGER"), out var result) && result;
+
+if (enableSwagger)
 {
     app.UseSwagger();
     app.UseSwaggerUI();

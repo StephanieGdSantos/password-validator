@@ -18,13 +18,13 @@ API REST desenvolvida em ASP.NET Core 8 que valida senhas de acordo com um conju
 ```powershell
 # 1. Clonar o repositório
 git clone https://github.com/StephanieGdSantos/password-validator.git
-cd password-validator
+cd password-validator/passowrd-validator/
 
 # 2. Restaurar dependências
 dotnet restore
 
 # 3. Executar a aplicação
-dotnet run --project password-validator/password-validator.csproj
+dotnet run --project password-validator.csproj
 ```
 
 **Aplicação disponível em:**
@@ -45,14 +45,16 @@ dotnet run --project password-validator/password-validator.csproj
 # 1. Puxar a imagem do Docker Hub
 docker pull stephaniegomes/password-validator:latest
 
-# 2. Executar o container
-docker run -d -p 8080:8080 -p 8081:8081 stephaniegomes/password-validator:latest
+# 2. Executar o container COM Swagger habilitado
+docker run -d -p 8080:8080 -p 8081:8081 -e ENABLE_SWAGGER=true stephaniegomes/password-validator:latest
 ```
 
 **Aplicação disponível em:**
 - 🔗 HTTP: `http://localhost:8080`
 - 🔒 HTTPS: `https://localhost:8081`
-- 📚 Swagger: `http://localhost:8080/swagger`
+- 📚 Swagger: `http://localhost:8080/swagger` (quando `ENABLE_SWAGGER=true`)
+
+> **Nota**: Se não quiser habilitar Swagger, basta remover o `-e ENABLE_SWAGGER=true` do comando acima.
 
 ---
 
